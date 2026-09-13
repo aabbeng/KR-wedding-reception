@@ -1,0 +1,34 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "../vendor/shadcn-tailwind-4.13.0.css";
+
+/* Natural ivory, warm earth, and burgundy wedding palette. */
+
+:root {
+  --background: #F8F1E7; --foreground: #3E2723; --card: #FFFFFF; --card-foreground: #3E2723;
+  --popover: #FFFFFF; --popover-foreground: #3E2723; --primary: #6B2C2C; --primary-foreground: #FFFFFF;
+  --secondary: #D8C3A5; --secondary-foreground: #6B2C2C; --muted: #D8C3A5; --muted-foreground: #8B6B4A;
+  --accent: #D8C3A5; --accent-foreground: #8B6B4A; --destructive: #6B2C2C; --border: #D8C3A5;
+  --input: #D8C3A5; --ring: #6B2C2C; --radius: .875rem;
+}
+
+@theme inline {
+  --color-background: var(--background); --color-foreground: var(--foreground); --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground); --color-primary: var(--primary); --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary); --color-secondary-foreground: var(--secondary-foreground); --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground); --color-accent: var(--accent); --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive); --color-border: var(--border); --color-input: var(--input); --color-ring: var(--ring);
+  --font-sans: "Beautifully Delicious", "Avenir Next", Avenir, "Segoe UI", Arial, sans-serif; --font-serif: "The Seasons", "Cormorant Garamond", Baskerville, Georgia, "Times New Roman", serif;
+}
+
+* { box-sizing: border-box; }
+html, body { background: var(--background); }
+body { margin: 0; color: var(--foreground); font-family: var(--font-sans); }
+h1, h2, h3 { color: #6B2C2C; }
+button, a, input { -webkit-tap-highlight-color: transparent; }
+button { cursor: pointer; }
+button:disabled { cursor: wait; }
+::selection { background: #D8C3A5; }
+
+
+

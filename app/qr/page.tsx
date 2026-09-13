@@ -1,0 +1,4 @@
+import { Gift, Images } from "lucide-react";
+export default function QrPage() { return <div><p className="mb-1 text-sm font-bold uppercase tracking-[.15em] text-[#8B6B4A]">Reception links</p><h1 className="font-serif text-4xl font-semibold">QR codes</h1><div className="mt-7 grid gap-5 sm:grid-cols-2"><div className="rounded-2xl border border-[#D8C3A5] bg-[#FFFFFF] p-7 shadow-sm"><Gift className="text-[#6B2C2C]" size={42} /><h2 className="mt-5 font-serif text-3xl font-semibold">Wedding Token QR</h2><p className="mt-2 text-base text-[#8B6B4A]">Display the stored DuitNow wedding token QR here.</p></div><div className="rounded-2xl border border-[#D8C3A5] bg-[#FFFFFF] p-7 shadow-sm"><Images className="text-[#8B6B4A]" size={42} /><h2 className="mt-5 font-serif text-3xl font-semibold">Wedding Album QR</h2><p className="mt-2 text-base text-[#8B6B4A]">Share the guest photo upload page.</p></div></div></div>; }
+
+
