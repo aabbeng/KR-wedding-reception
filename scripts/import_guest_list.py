@@ -22,25 +22,32 @@ def sql(value):
 source, project = Path(sys.argv[1]), Path(sys.argv[2])
 sheet = openpyxl.load_workbook(source, data_only=True, read_only=True).active
 headers = [clean(value) for value in next(sheet.iter_rows(values_only=True))]
-required = ["name", "table_number", "seat_number", "group_name", "notes"]
-if headers != required:
-    raise SystemExit(f"Expected headers {required}; found {headers}")
+if headers == ["guest_name", "table_name"]:
+    headers = ["name", "table_number"]
+    rows = [dict(zip(headers, values)) for values in sheet.iter_rows(min_row=2, values_only=True)]
+    counters = {}
+    normalized = []
+    for row in rows:
+        name, table_label = clean(row["name"]), clean(row["table_number"]).upper().replace("TABLE ", "")
+        if not name or not table_label:
+            continue
+        counters[table_label] = counters.get(table_label, 0) + 1
+        normalized.append({"name": name, "table_number": table_label, "seat_number": counters[table_label], "group_name": None, "notes": None})
+    records = normalized
+else:
+    required = ["name", "table_number", "seat_number", "group_name", "notes"]
+    if headers != required:
+        raise SystemExit(f"Expected headers {required} or ['guest_name', 'table_name']; found {headers}")
+    records = []
+    for row_number, values in enumerate(sheet.iter_rows(min_row=2, values_only=True), start=2):
+        if not any(value not in (None, "") for value in values):
+            continue
+        row = dict(zip(headers, values))
+        name, table_label, seat_text = clean(row["name"]), clean(row["table_number"]).upper(), clean(row["seat_number"])
+        if not name or not table_label or not seat_text:
+            raise SystemExit(f"Missing required value on row {row_number}")
+        records.append({"name": name, "table_number": table_label, "seat_number": int(float(seat_text)), "group_name": clean(row["group_name"]) or None, "notes": clean(row["notes"]) or None})
 
-records = []
-for row_number, values in enumerate(sheet.iter_rows(min_row=2, values_only=True), start=2):
-    if not any(value not in (None, "") for value in values):
-        continue
-    row = dict(zip(headers, values))
-    name, table_label, seat_text = clean(row["name"]), clean(row["table_number"]).upper(), clean(row["seat_number"])
-    if not name or not table_label or not seat_text:
-        raise SystemExit(f"Missing required value on row {row_number}")
-    records.append({
-        "name": name,
-        "table_number": table_label,
-        "seat_number": int(float(seat_text)),
-        "group_name": clean(row["group_name"]) or None,
-        "notes": clean(row["notes"]) or None,
-    })
 
 labels = sorted({r["table_number"] for r in records}, key=lambda x: (x != "VIP", int(x) if x.isdigit() else 9999, x))
 tables = []
