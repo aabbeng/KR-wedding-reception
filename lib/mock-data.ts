@@ -2729,7 +2729,7 @@ export const mockGuests = [
   },
   {
     "id": "3332d45a-70c1-5c18-9389-d14c1ea5bed4",
-    "name": "DODO",
+    "name": "ADAM",
     "table_id": "21fe87e3-6d0e-5a6d-998e-9dfc2b74431c",
     "table_number": "22",
     "seat_number": 8,
